@@ -13,3 +13,4 @@ function calculateTotal(items) {
   function getTopItems(items, limit) {
     return items.sort((a, b) => b.popularity - a.popularity).slice(0, limit)
   }
+
