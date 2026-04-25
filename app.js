@@ -6,7 +6,6 @@
 function calculateTotal(items) {
     return items.reduce((sum, item) => sum + item.price, 0)
   }
-
 /**
  * Filters a list of items by a specified category.
  * @param {Array<Object>} items - An array of item objects, each with a `category` property.
