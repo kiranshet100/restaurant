@@ -1,9 +1,8 @@
 /**
- * Calculates the sum of `price` properties for all items in a list.
+ * Calculates the sum of `price` properties for all items in an array.
  * @param {Array<Object>} items - An array of item objects. Each object must have a `price` property of type `number`.
  * @returns {number} The total sum of prices.
  */
-//docflow make the doc better
 function calculateTotal(items) {
     return items.reduce((sum, item) => sum + item.price, 0)
   }
