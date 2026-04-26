@@ -1,5 +1,5 @@
 # Restaurant
-A comprehensive system for managing restaurant operations.
+A foundational set of JavaScript utilities for restaurant data operations.
 
 [![GitHub license](https://img.shields.io/github/license/kiranshet100/restaurant)](https://github.com/kiranshet100/restaurant/blob/main/LICENSE)
 [![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/kiranshet100/restaurant/main.yml?branch=main)](https://github.com/kiranshet100/restaurant/actions?query=branch%3Amain)
@@ -8,15 +8,14 @@ A comprehensive system for managing restaurant operations.
 Restaurant is a robust and intuitive application designed to streamline various aspects of restaurant management. It aims to simplify daily operations, from order processing to inventory tracking, helping restaurant owners and staff enhance efficiency and customer satisfaction. This system is tailored for small to medium-sized restaurants looking for a comprehensive digital solution.
 
 ## Key Features
-- **Menu Management:** Define and organize food and beverage items, including categories, prices, and descriptions.
-- **Order Processing:** Efficiently take, manage, and track customer orders, including modifications and special requests.
-- **Table Management:** Monitor table status (available, occupied, cleaning) to optimize seating arrangements.
-- **Customer Management:** Maintain customer records and order history for personalized service.
-- **Reporting & Analytics:** Generate insights into sales performance, popular items, and operational efficiency.
+-   **Item Price Aggregation:** Efficiently calculates the total price for a collection of menu items or order components.
+-   **Category-Based Item Filtering:** Organizes and retrieves menu items by specific categories for easier management and display.
+-   **Standardized Price Formatting:** Ensures all monetary amounts are displayed consistently and legibly (e.g., "$12.34").
+-   **Popularity Ranking:** Identifies and returns top-performing menu items based on a given popularity metric, useful for analytics.
 
 ## Installation
 
-To get the Restaurant application up and running on your local machine, follow these steps:
+To get the core Restaurant utilities up and running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
@@ -30,27 +29,53 @@ To get the Restaurant application up and running on your local machine, follow t
     npm install
     ```
 
-3.  **Setup Environment Variables (if any):**
-    Create a `.env` file in the root directory and add any necessary environment variables (e.g., database connection strings, API keys). Refer to `.env.example` if available.
-
 ## Usage
 
-After installation, you can start the application using the following command:
+The `restaurant` package provides a set of utility functions for common restaurant data operations. You can import and use them in your JavaScript project:
 
-```bash
-npm start
+```javascript
+// Import the utility functions
+const { calculateTotal, filterByCategory, formatPrice, getTopItems } = require('./app');
+
+// Example data representing menu items or inventory
+const menuItems = [
+  { name: 'Classic Burger', category: 'Main', price: 12.50, popularity: 5 },
+  { name: 'French Fries', category: 'Side', price: 3.00, popularity: 4 },
+  { name: 'Coca-Cola', category: 'Drink', price: 2.00, popularity: 3 },
+  { name: 'Pepperoni Pizza', category: 'Main', price: 15.75, popularity: 6 },
+  { name: 'Caesar Salad', category: 'Appetizer', price: 8.25, popularity: 2 },
+];
+
+// 1. Calculate the total price for a selection of items
+const orderItems = [menuItems[0], menuItems[1], menuItems[2]]; // Burger, Fries, Coke
+const orderTotal = calculateTotal(orderItems);
+console.log(`Current Order Total: ${formatPrice(orderTotal)}`); 
+// Expected output: Current Order Total: $17.50
+
+// 2. Filter menu items by a specific category
+const mainDishes = filterByCategory(menuItems, 'Main');
+console.log('Available Main Dishes:', mainDishes.map(item => item.name));
+// Expected output: Available Main Dishes: [ 'Classic Burger', 'Pepperoni Pizza' ]
+
+// 3. Get the top N popular items
+const topSellingItems = getTopItems(menuItems, 2);
+console.log('Top Selling Items:', topSellingItems.map(item => item.name));
+// Expected output: Top Selling Items: [ 'Pepperoni Pizza', 'Classic Burger' ]
+
+// 4. Format a numerical amount into a currency string
+const rawAmount = 25.5;
+console.log(`Formatted Price: ${formatPrice(rawAmount)}`);
+// Expected output: Formatted Price: $25.50
 ```
-
-Once the application is running, typically it will be accessible via your web browser at `http://localhost:3000` (or another port specified in the console output).
 
 ## How It Works
 
-The Restaurant application is envisioned as a multi-tiered system designed for scalability and maintainability:
+The Restaurant project's core functionality is built upon a concise set of JavaScript utility functions:
 
--   **Frontend:** A user-friendly interface for staff and potentially customers, built with modern web technologies for a responsive experience.
--   **Backend:** A robust server-side application handling business logic, data processing, and API endpoints.
--   **Database:** A persistent storage solution to securely manage all restaurant data, including menus, orders, users, and inventory.
--   **API:** A set of well-defined RESTful APIs facilitate communication between the frontend, backend, and any potential third-party integrations.
+-   **Pure JavaScript Functions:** Core functionalities are implemented as independent, pure JavaScript utility functions, ensuring predictable and testable behavior.
+-   **Modular Design:** Designed for reusability, these functions can be easily integrated into larger applications or specific modules without tight coupling.
+-   **Core Data Primitives:** Focuses on foundational data manipulation tasks such as aggregation, filtering, and formatting of item data.
+-   **No External Dependencies:** The primary utility functions operate standalone without relying on external libraries or frameworks for their core logic.
 
 ## Contributing
 
