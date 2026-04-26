@@ -3,6 +3,7 @@
  * @param {Array<Object>} items - An array of item objects, each with a `price` property.
  * @returns {number} The total sum of prices.
  */
+//docflow make the doc better
 function calculateTotal(items) {
     return items.reduce((sum, item) => sum + item.price, 0)
   }
